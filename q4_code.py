@@ -13,31 +13,34 @@ def Gaussian_Blur(sigma,kernel_size):
     half_kernel = (kernel_size-1) // 2
     matrix = []
     Gaussian_matrix = []
-    
     for i in range(kernel_size):
         matrix.append([])
         Gaussian_matrix.append([])
         for j in range(kernel_size):
             matrix[i].append((j-half_kernel,half_kernel-i))
             Gaussian_matrix[i].append(Gaussian_Model(sigma,matrix[i][j]))
+    print(Gaussian_matrix)
     return Gaussian_matrix
     
 def convolution(matrix,x,y,src):
     x_length, y_length = src.shape
+    kernel_size = len(matrix)
     count_u = 0
     res = 0
-    for u in range(-1,2):
+    start = int(-(kernel_size-1)/2)
+    end = int((kernel_size-1)/2 + 1)
+    for u in range(start,end):
         count_v = 0
-        for v in range(-1,2):
-            if(x+u<0 or y+v<0 or x+u>=x_length or y+v>=y_length): res += 0
-            else: res += src[x+u][y+v] * matrix[count_u][count_v]
+        for v in range(start,end):
+            if(x-u<0 or y-v<0 or x-u>=x_length or y-v>=y_length): res += 0
+            else: res += src[x-u][y-v] * matrix[count_u][count_v]
             count_v += 1
         count_u += 1
     return res
     
 def Sobel_Operation(src):
-    sobel_x = [[1,0,-1],[2,0,-2],[1,0,-1]]
-    sobel_y = [[1,2,1],[0,0,0],[-1,-2,-1]]
+    sobel_x = [[-1,0,1],[-2,0,2],[-1,0,1]]
+    sobel_y = [[-1,-2,-1],[0,0,0],[1,2,1]]
     x_length, y_length = src.shape
     res = np.empty((x_length,y_length), dtype=float)
     for i in range(x_length):
@@ -66,8 +69,6 @@ def Threshold_Algorithm(gradients):
         tau_1 = (M_L+M_H) / 2
         if(abs(tau_0-tau_1)<=0.0000001): break
         tau_0 = tau_1
-        
-        
     edge_map = np.empty((h,w), dtype=float)
     for i in range(h):
         for j in range(w):
@@ -88,9 +89,8 @@ def getEdgeImage(img,Gaussian_Matrix):
     gradients = Sobel_Operation(Gaussian_image)
     return Threshold_Algorithm(gradients)
     
-    
 if __name__ == '__main__':
-    Gaussian_Matrix = Gaussian_Blur(1.5,3)
+    Gaussian_Matrix = Gaussian_Blur(1.5,5)
     img = plt.imread("./Q4_image_1.jpg")
     grayscale_image = getGreyImge(img)
     edge_map = getEdgeImage(grayscale_image,Gaussian_Matrix)
