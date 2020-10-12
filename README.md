@@ -19,7 +19,7 @@ In this assignment, I have implement funtions `Gaussian_Model`, `Gaussian_Blur`,
 `getGreyImge`: Transfer RGB to one channel.
 `getEdgeImage`: Get binary image.
 `neighbor_check`: Check eight neighbours when doing labels.
-`CC_label`: : Label the graph.
+`CC_label`: Label the graph.
 
 You can find details in the report and `q4_code.py`, `q5_code.py`, and `q6_code.py`.
 
