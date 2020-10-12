@@ -27,23 +27,23 @@ def convolution(matrix,x,y,src):
 # This function is only for grey scale image. #
 # Please use getGreyImge first, if input is a RGB image. #
 # Can be optimized by the product of two vectors. #
-    x_length, y_length = src.shape
+    x_boundary, y_boundary = src.shape
     kernel_size = len(matrix)
 # Help to track the row in Matrix. #
-    count_u = 0
+    index_i = 0
     res = 0
 # Get the start and end of k. #
     start = int(-(kernel_size-1)/2)
     end = int((kernel_size-1)/2 + 1)
     for u in range(start,end):
 # Help to track the coloum in Matrix. #
-        count_v = 0
+        index_j = 0
         for v in range(start,end):
 # Boundary check. Smarter than padding the image. #
-            if(x-u<0 or y-v<0 or x-u>=x_length or y-v>=y_length): res += 0
-            else: res += src[x-u][y-v] * matrix[count_u][count_v]
-            count_v += 1
-        count_u += 1
+            if(x-u<0 or y-v<0 or x-u>=x_boundary or y-v>=y_boundary): res += 0
+            else: res += src[x-u][y-v] * matrix[index_i][index_j]
+            index_j += 1
+        index_i += 1
     return res
     
 def Sobel_Operation(src):
@@ -110,10 +110,28 @@ if __name__ == '__main__':
     Gaussian_Matrix = Gaussian_Blur(1.5,3)
     Gaussian_Matrix_2 = Gaussian_Blur(0.5,5)
 # Get image array. #
-    img = plt.imread("./Q4_image_1.jpg")
+    img_1 = plt.imread("./Q4_image_1.jpg")
+    img_2 = plt.imread("./Q4_image_2.jpg")
+    img_3 = plt.imread("./my_image.jpg")
 # Change to grey scale.#
 # If the image is grey, skip this step. #
-    grayscale_image = getGreyImge(img)
-    edge_map = getEdgeImage(grayscale_image,Gaussian_Matrix)
-    img_g = Image.fromarray(edge_map)
-    img_g.show()
+    grayscale_image_1 = getGreyImge(img_1)
+    edge_map_1 = getEdgeImage(grayscale_image_1,Gaussian_Matrix)
+    img_g_1 = Image.fromarray(edge_map_1)
+    img_g_1.show()
+    
+    grayscale_image_2 = getGreyImge(img_2)
+    edge_map_2 = getEdgeImage(grayscale_image_2,Gaussian_Matrix_2)
+    img_g_2 = Image.fromarray(edge_map_2)
+    img_g_2.show()
+    
+    grayscale_image_3 = getGreyImge(img_3)
+    edge_map_3 = getEdgeImage(grayscale_image_3,Gaussian_Matrix)
+    img_g_3 = Image.fromarray(edge_map_3)
+    img_g_3.show()
+    
+    
+    
+    
+    
+    

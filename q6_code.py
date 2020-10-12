@@ -5,7 +5,7 @@ from q4_code import *
 from q5_code import *
 
 # Gaussian_Matrix with small kernel size#
-Gaussian_Matrix = Gaussian_Blur(1.5,3)
+Gaussian_Matrix = Gaussian_Blur(3,3)
 img = mpimg.imread("./Q6.png")
 # Transfer to edge map. #
 edge_map = getEdgeImage(img,Gaussian_Matrix)
