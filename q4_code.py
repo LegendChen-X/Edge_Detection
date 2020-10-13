@@ -129,9 +129,3 @@ if __name__ == '__main__':
     edge_map_3 = getEdgeImage(grayscale_image_3,Gaussian_Matrix)
     img_g_3 = Image.fromarray(edge_map_3)
     img_g_3.show()
-    
-    
-    
-    
-    
-    

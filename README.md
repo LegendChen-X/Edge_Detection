@@ -7,7 +7,6 @@
 >     sudo add-apt-repository ppa:deadsnakes/ppa
 >     sudo apt install python3.8
 
-
 ## Summary
 In this assignment, I have implement funtions `Gaussian_Model`, `Gaussian_Blur`, `convolution`, `Sobel_Operation`, `Threshold_Algorithm`, `getGreyImge`, `getEdgeImage`, `neighbor_check`, `CC_label`.
 
